@@ -13,7 +13,6 @@
     <!-- Add Player Form -->
     <div class="form">
       <input type="text" id="playerName" placeholder="Player Name" />
-      
       <select id="teamSelect">
         <option value="">Select Team</option>
         <optgroup label="Premier League">
@@ -31,7 +30,6 @@
           <option value="valencia">Valencia</option>
         </optgroup>
       </select>
-
       <button onclick="addPlayer()">Add Player</button>
       <button onclick="resetTable()" class="reset-btn">Reset Table</button>
     </div>
@@ -54,7 +52,10 @@
       <button onclick="deletePlayer()">Delete Player</button>
     </div>
 
-    <!-- Table -->
+    <!-- Winner Banner -->
+    <div id="winnerBanner" class="winner-banner"></div>
+
+    <!-- League Table -->
     <table id="playersTable">
       <thead>
         <tr>

@@ -1,44 +1,14 @@
 const teams = {
-  arsenal: {
-    name: "Arsenal",
-    logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"
-  },
-  man_city: {
-    name: "Manchester City",
-    logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg"
-  },
-  man_united: {
-    name: "Manchester United",
-    logo: "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg"
-  },
-  chelsea: {
-    name: "Chelsea",
-    logo: "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg"
-  },
-  liverpool: {
-    name: "Liverpool",
-    logo: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg"
-  },
-  real_madrid: {
-    name: "Real Madrid",
-    logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg"
-  },
-  barcelona: {
-    name: "Barcelona",
-    logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg"
-  },
-  atletico: {
-    name: "Atletico Madrid",
-    logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg"
-  },
-  sevilla: {
-    name: "Sevilla",
-    logo: "https://upload.wikimedia.org/wikipedia/en/8/86/Sevilla_CF_logo.svg"
-  },
-  valencia: {
-    name: "Valencia",
-    logo: "https://upload.wikimedia.org/wikipedia/en/c/ce/Valencia_CF.svg"
-  }
+  arsenal: { name: "Arsenal", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" },
+  man_city: { name: "Manchester City", logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg" },
+  man_united: { name: "Manchester United", logo: "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg" },
+  chelsea: { name: "Chelsea", logo: "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" },
+  liverpool: { name: "Liverpool", logo: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg" },
+  real_madrid: { name: "Real Madrid", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg" },
+  barcelona: { name: "Barcelona", logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg" },
+  atletico: { name: "Atletico Madrid", logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg" },
+  sevilla: { name: "Sevilla", logo: "https://upload.wikimedia.org/wikipedia/en/8/86/Sevilla_CF_logo.svg" },
+  valencia: { name: "Valencia", logo: "https://upload.wikimedia.org/wikipedia/en/c/ce/Valencia_CF.svg" }
 };
 
 let players = [];
@@ -102,7 +72,6 @@ function sortAndDisplayPlayers() {
 
   players.forEach((player, index) => {
     const row = tbody.insertRow();
-
     row.insertCell(0).textContent = index + 1;
 
     const clubCell = row.insertCell(1);
@@ -121,6 +90,17 @@ function sortAndDisplayPlayers() {
     row.insertCell(8).textContent = player.gd;
     row.insertCell(9).textContent = player.points;
   });
+
+  // Show winner if all played 38
+  const allPlayed38 = players.length > 0 && players.every(p => p.played >= 38);
+  const winnerBanner = document.getElementById("winnerBanner");
+  if (allPlayed38) {
+    const winner = players[0];
+    winnerBanner.innerHTML = `🏆 ${winner.name} Wins the League!`;
+    winnerBanner.style.display = "block";
+  } else {
+    winnerBanner.style.display = "none";
+  }
 }
 
 function resetTable() {
@@ -163,9 +143,13 @@ function recordMatch() {
   const teamA = players[aIndex];
   const teamB = players[bIndex];
 
+  if (teamA.played >= 38 || teamB.played >= 38) {
+    alert("One of the teams has already played 38 matches.");
+    return;
+  }
+
   teamA.gf += scoreA;
   teamA.ga += scoreB;
-
   teamB.gf += scoreB;
   teamB.ga += scoreA;
 
