@@ -2,85 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Points Tracker</title>
-  <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 8px;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f4f4f9;
-    }
-    h1 {
-      color: #333;
-    }
-    .container {
-      margin-bottom: 30px;
-    }
-    input, select, button {
-      margin: 5px;
-    }
-    button {
-      padding: 8px 15px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Revin's Match Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-  <h1>Game Points Tracker</h1>
-
-  <!-- Section to add a new player -->
   <div class="container">
-    <input type="text" id="playerName" placeholder="Enter player name" />
-    <button onclick="addPlayer()">Add Player</button>
+    <h1>Revin's Match Tracker</h1>
+
+    <!-- Add Player Form -->
+    <div class="form">
+      <input type="text" id="playerName" placeholder="Player Name" />
+      
+      <select id="teamSelect">
+        <option value="">Select Team</option>
+        <optgroup label="Premier League">
+          <option value="arsenal">Arsenal</option>
+          <option value="man_city">Manchester City</option>
+          <option value="man_united">Manchester United</option>
+          <option value="chelsea">Chelsea</option>
+          <option value="liverpool">Liverpool</option>
+        </optgroup>
+        <optgroup label="La Liga">
+          <option value="real_madrid">Real Madrid</option>
+          <option value="barcelona">Barcelona</option>
+          <option value="atletico">Atletico Madrid</option>
+          <option value="sevilla">Sevilla</option>
+          <option value="valencia">Valencia</option>
+        </optgroup>
+      </select>
+
+      <button onclick="addPlayer()">Add Player</button>
+      <button onclick="resetTable()" class="reset-btn">Reset Table</button>
+    </div>
+
+    <!-- Match Result Section -->
+    <div class="match-form">
+      <h2>Record Match Result</h2>
+      <select id="teamA"></select>
+      <input type="number" id="scoreA" placeholder="Score A" min="0" />
+      <span>vs</span>
+      <input type="number" id="scoreB" placeholder="Score B" min="0" />
+      <select id="teamB"></select>
+      <button onclick="recordMatch()">Record Result</button>
+    </div>
+
+    <!-- Delete Player -->
+    <div class="delete-form">
+      <h2>Delete a Player</h2>
+      <select id="deletePlayerSelect"></select>
+      <button onclick="deletePlayer()">Delete Player</button>
+    </div>
+
+    <!-- Table -->
+    <table id="playersTable">
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Club</th>
+          <th>P</th>
+          <th>W</th>
+          <th>D</th>
+          <th>L</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
-  <!-- Section to record match result -->
-  <div class="container">
-    <label for="selectedPlayer">Select Player:</label>
-    <select id="selectedPlayer"></select>
-
-    <label for="matchResult">Result:</label>
-    <select id="matchResult">
-      <option value="win">Win</option>
-      <option value="draw">Draw</option>
-      <option value="loss">Loss</option>
-    </select>
-
-    <button onclick="recordResult()">Record Result</button>
-  </div>
-
-  <!-- Scoreboard -->
-  <h2>Scoreboard</h2>
-  <table id="scoreboard">
-    <thead>
-      <tr>
-        <th>Player</th>
-        <th>Points</th>
-        <th>Matches Played</th>
-        <th>Games Won</th>
-        <th>Games Drawn</th>
-        <th>Games Lost</th>
-        <th>Goals Scored</th>
-        <th>Goals Conceded</th>
-        <th>Goal Difference</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-  <!-- Link to JavaScript file -->
   <script src="script.js"></script>
 </body>
 </html>
